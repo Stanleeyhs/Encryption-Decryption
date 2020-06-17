@@ -1,82 +1,63 @@
-package encryptdecrypt;
-
-import javax.management.loading.MLet;
-import java.util.Arrays;
-import java.util.Scanner;
-
-public class Main {
-    public static String encrypt(String input, int key) {
-        String alphabet = " " +"!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
-        String shifted = alphabet.substring(key) + alphabet.substring(0, key);
-        StringBuilder encrypted = new StringBuilder(input);
-        for (int i = 0; i < encrypted.length(); i++) {
-            char current = encrypted.charAt(i);
-            int idx = alphabet.indexOf(current);
-            if (idx != -1) {
-                char newChar = shifted.charAt(idx);
-                encrypted.setCharAt(i, newChar);
-            }
-        }
-        return encrypted.toString();
-    }
-
-    public static String decrypt(String input, int key) {
-        String alphabet = "  !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
-        String shifted = alphabet.substring(key) + alphabet.substring(0,key);
-        StringBuilder decrypted = new StringBuilder(input);
-        for (int i = 0; i < decrypted.length(); i++) {
-
-            char current = decrypted.charAt(i);
-            int idx = shifted.indexOf(current);
-            if (idx != -1) {
-                char newChar = alphabet.charAt(idx);
-                decrypted.setCharAt(i, newChar);
-            }
-        }
-        return decrypted.toString();
-    }
-
-
-
 
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        String login = "demo-user";
+        String firstName = "Alexander";
+        String lastName = "Schmidt";
+        User user = new User(login,firstName,lastName);
 
-        String operation = scanner.nextLine();
-        String input = scanner.nextLine();
-        int key = scanner.nextInt();
-
-        if (operation.equals("enc")) {
-          System.out.print(encrypt(input, key));
-       }else if (operation.equals("dec")){
-            System.out.println(decrypt(input,key));
-        }
+        String code = "123456";
+        long balance = 1000;
+        Account account = new Account(code,balance,user);
 
     }
-}
 
+    static class Account {
 
+        private String code;
+        private long balance;
+        private User owner;
 
+        public Account(String code, long balance, User owner) {
+            this.code = code;
+            this.balance = balance;
+            this.owner = owner;
+        }
 
+        public String getCode() {
+            return code;
+        }
 
+        public long getBalance() {
+            return balance;
+        }
 
+        public User getOwner() {
+            return owner;
+        }
+    }
 
+    static class User {
 
+        private String login;
+        private String firstName;
+        private String lastName;
 
+        public User(String login, String firstName, String lastName) {
+            this.login = login;
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
 
+        public String getLogin() {
+            return login;
+        }
 
+        public String getFirstName() {
+            return firstName;
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        public String getLastName() {
+            return lastName;
+        }
+    }
